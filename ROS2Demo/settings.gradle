@@ -1,0 +1,3 @@
+rootProject.name='ROS2Demo'
+include ':app'
+include ':ros2activity'
