@@ -2,6 +2,7 @@
 
 将jniLibs下的库文件push到设备vendor/lib64下：
 > cd ROS2Demo/app/jniLibs
+
 > find arm64-v8a -name *.so | xargs -i adb push {} /vendor/lib64
 
 用AndroidStudio编译出apk push 到 /system/priv-app/下
