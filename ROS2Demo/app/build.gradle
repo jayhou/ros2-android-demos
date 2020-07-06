@@ -23,7 +23,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("./plat-keys/platform-m01.jks")
+            storeFile file(var)
             storePassword '123456'
             keyAlias 'm01-platform'
             keyPassword '123456'

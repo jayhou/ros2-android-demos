@@ -36,7 +36,7 @@ public class ROS2ListenerActivity extends ROSActivity {
 
     private TextView listenerView;
 
-    private static String logtag = ROS2ListenerActivity.class.getName();
+    private static String TAG = ROS2ListenerActivity.class.getName();
 
     private boolean isWorking;
 
@@ -56,13 +56,27 @@ public class ROS2ListenerActivity extends ROSActivity {
         Button buttonStop = (Button)findViewById(R.id.buttonStop);
         buttonStop.setOnClickListener(stopListener);
 
+        Button addTwoInts = findViewById(R.id.addTwoInts);
+        addTwoInts.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "request 2+3 to pc .... ");
+                        listenerNode.addTwoInts();
+                    }
+                }).start();
+            }
+        });
+
         listenerView = (TextView)findViewById(R.id.listenerView);
         listenerView.setMovementMethod(new ScrollingMovementMethod());
 
         RCLJava.rclJavaInit();
 
         listenerNode =
-                new ListenerNode("android_listener_node", "chatter", listenerView);
+                new ListenerNode(listenerView, RCLJava.getDefaultContext());
 
         changeState(isWorking);
     }
@@ -70,11 +84,11 @@ public class ROS2ListenerActivity extends ROSActivity {
     // Create an anonymous implementation of OnClickListener
     private OnClickListener startListener = new OnClickListener() {
         public void onClick(final View view) {
-            Log.d(logtag, "onClick() called - start button");
+            Log.d(TAG, "onClick() called - start button");
             Toast.makeText(
                     ROS2ListenerActivity.this, "The Start button was clicked.",
                     Toast.LENGTH_LONG).show();
-            Log.d(logtag, "onClick() ended - start button");
+            Log.d(TAG, "onClick() ended - start button");
             changeState(true);
         }
     };
@@ -82,12 +96,12 @@ public class ROS2ListenerActivity extends ROSActivity {
     // Create an anonymous implementation of OnClickListener
     private OnClickListener stopListener = new OnClickListener() {
         public void onClick(final View view) {
-            Log.d(logtag, "onClick() called - stop button");
+            Log.d(TAG, "onClick() called - stop button");
             Toast.makeText(
                     ROS2ListenerActivity.this, "The Stop button was clicked.",
                     Toast.LENGTH_LONG).show();
             changeState(false);
-            Log.d(logtag, "onClick() ended - stop button");
+            Log.d(TAG, "onClick() ended - stop button");
         }
     };
 
@@ -98,9 +112,9 @@ public class ROS2ListenerActivity extends ROSActivity {
         buttonStart.setEnabled(!isWorking);
         buttonStop.setEnabled(isWorking);
         if (isWorking){
-            getExecutor().addNode(listenerNode);
+            //getExecutor().addNode(listenerNode);
         } else {
-            getExecutor().removeNode(listenerNode);
+            //getExecutor().removeNode(listenerNode);
         }
     }
 

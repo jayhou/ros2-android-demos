@@ -1,4 +1,6 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+ext {
+    var = '/home/jayhou/AndroidStudioProjects/ros2-android-demos/ROS2Demo/app/plat-keys/platform-m01.jks'
+}// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
     
