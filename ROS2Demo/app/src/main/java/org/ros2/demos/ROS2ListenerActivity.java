@@ -65,6 +65,8 @@ public class ROS2ListenerActivity extends ROSActivity {
                     public void run() {
                         Log.d(TAG, "request 2+3 to pc .... ");
                         listenerNode.addTwoInts();
+                        Log.d(TAG, "request FrtACControl...");
+                        listenerNode.frtACControl();
                     }
                 }).start();
             }
